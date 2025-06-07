@@ -5,9 +5,11 @@ Content-Type: application/json
 {
   "title": "Dream Big",
   "author": "John Doe",
-  "publication_year": 1999,
-  "isbn": 9780201616224
+  "publicationYear": 1999,
+  "ISBN": 9780201616224
 }
+
+
 
 ### Get all books
 GET http://localhost:3000/books
@@ -20,11 +22,13 @@ PUT http://localhost:3000/books/1
 Content-Type: application/json
 
 {
-  "title": "The Pragmatic Programmer - Updated",
-  "author": "John Doe & David Thomas",
-  "publication_year": 2000,
-  "isbn": "978-0201616224"
+  "title": "think big Updated",
+  "author": "brian Doe",
+  "publicationYear": 2001,
+  "ISBN": 34547363776
 }
+
+
 
 ### Soft delete a book by ID
 DELETE http://localhost:3000/books/soft/1

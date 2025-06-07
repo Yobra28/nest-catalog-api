@@ -15,9 +15,10 @@ BEGIN
     RETURN QUERY
     INSERT INTO books (title, author, publication_year, ISBN)
     VALUES (p_title, p_author, p_publication_year, p_ISBN)
-    RETURNING id, title, author, publication_year, ISBN;
+    RETURNING books.id, books.title, books.author, books.publication_year, books.ISBN;
 END;
 $$ LANGUAGE plpgsql;
+
 
 
     -- Count books by publication year
