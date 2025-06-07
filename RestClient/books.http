@@ -1,0 +1,37 @@
+### Creating a new book
+POST http://localhost:3000/books
+Content-Type: application/json
+
+{
+  "title": "Dream Big",
+  "author": "John Doe",
+  "publication_year": 1999,
+  "isbn": 9780201616224
+}
+
+### Get all books
+GET http://localhost:3000/books
+
+### Get one book by ID
+GET http://localhost:3000/books/2
+
+### Update a book by ID
+PUT http://localhost:3000/books/1
+Content-Type: application/json
+
+{
+  "title": "The Pragmatic Programmer - Updated",
+  "author": "John Doe & David Thomas",
+  "publication_year": 2000,
+  "isbn": "978-0201616224"
+}
+
+### Soft delete a book by ID
+DELETE http://localhost:3000/books/soft/1
+
+### Hard delete a book by ID
+DELETE http://localhost:3000/books/1
+
+### Count books by publication year
+GET http://localhost:3000/books/count/1999
+
