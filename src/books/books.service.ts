@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+ 
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable prettier/prettier */
  
@@ -49,7 +49,7 @@ export class BooksService {
     id: row.id,
     title: row.title,
     author: row.author,
-    publication_year: row.publication_year,  // make sure case matches PostgreSQL response
+    publication_year: row.publication_year,  
     ISBN: row.isbn,
   };
 }
