@@ -12,19 +12,16 @@ RETURNS TABLE(
     ISBN BIGINT
 ) AS $$
 BEGIN
+    IF EXISTS (SELECT 1 FROM books WHERE ISBN = p_ISBN) THEN
+        RAISE EXCEPTION 'Book with ISBN % already exists', p_ISBN;
+    END IF;
+
     RETURN QUERY
     INSERT INTO books (title, author, publication_year, ISBN)
     VALUES (p_title, p_author, p_publication_year, p_ISBN)
-    RETURNING books.id, books.title, books.author, books.publication_year, books.ISBN;
+    RETURNING id, title, author, publication_year, ISBN;
 END;
 $$ LANGUAGE plpgsql;
 
 
 
-    -- Count books by publication year
-CREATE OR REPLACE FUNCTION count_books_by_year(year INT)
-RETURNS INT AS $$
-BEGIN
-    RETURN (SELECT COUNT(*) FROM books WHERE publication_year = year AND deleted_at IS NULL);
-END;
-$$ LANGUAGE plpgsql;

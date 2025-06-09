@@ -18,7 +18,7 @@ GET http://localhost:3000/books
 GET http://localhost:3000/books/2
 
 ### Update a book by ID
-PUT http://localhost:3000/books/1
+PUT http://localhost:3000/books/15
 Content-Type: application/json
 
 {
@@ -34,8 +34,9 @@ Content-Type: application/json
 DELETE http://localhost:3000/books/soft/1
 
 ### Hard delete a book by ID
-DELETE http://localhost:3000/books/1
+DELETE http://localhost:3000/books/11
 
 ### Count books by publication year
 GET http://localhost:3000/books/count/1999
+
 

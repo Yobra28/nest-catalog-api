@@ -13,6 +13,7 @@ psql -U postgres -h localhost -d book_catalog -f src/Database/Procedures/create_
 psql -U postgres -h localhost -d book_catalog -f src/Database/Procedures/get_book.sql
 psql -U postgres -h localhost -d book_catalog -f src/Database/Procedures/update_book.sql
 psql -U postgres -h localhost -d book_catalog -f src/Database/Procedures/delete_book.sql
+psql -U postgres -h localhost -d book_catalog -f src/Database/Procedures/count_by_year.sql
 
 
 

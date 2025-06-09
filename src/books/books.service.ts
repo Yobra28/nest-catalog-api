@@ -18,6 +18,15 @@ export class BooksService {
   constructor(private readonly databaseService: DatabaseService) {}
 
   async create(createBookDto: CreateBookDto): Promise<Books> {
+  const ifbookisbnexist = await this.databaseService.query(
+    `SELECT * FROM Books WHERE isbn = $1`,
+    [createBookDto.ISBN],
+  );
+
+  if (ifbookisbnexist.rows && ifbookisbnexist.rows.length > 0) {
+    throw new ConflictException(`Book with ISBN ${createBookDto.ISBN} already exists`);
+  }
+
   try {
     const result = await this.databaseService.query(
       `SELECT * FROM create_book($1, $2, $3, $4)`,
@@ -131,6 +140,10 @@ async hardDelete(id: number): Promise<void> {
 
   async countByYear(year: number) {
     const result = await this.databaseService.query('SELECT count_books_by_year($1)', [year]);
-    return { year, count: result.rows[0].count_books_by_year };
-  }
+    const count = result.rows[0].count_books_by_year;
+    if (count === 0) {
+      throw new NotFoundException(`No books found for year ${year}`);
+    }
+    return { year, count };
+}
 }
