@@ -3,10 +3,10 @@ POST http://localhost:3000/books
 Content-Type: application/json
 
 {
-  "title": "Dream Big",
-  "author": "John Doe",
-  "publicationYear": 1999,
-  "ISBN": 9780201616224
+  "title": "The Big lie",
+  "author": "Joseph K",
+  "publicationYear": 2023,
+  "ISBN": 94633723546
 }
 
 
@@ -15,17 +15,17 @@ Content-Type: application/json
 GET http://localhost:3000/books
 
 ### Get one book by ID
-GET http://localhost:3000/books/2
+GET http://localhost:3000/books/3
 
 ### Update a book by ID
-PUT http://localhost:3000/books/15
+PUT http://localhost:3000/books/3
 Content-Type: application/json
 
 {
-  "title": "think big Updated",
-  "author": "brian Doe",
-  "publicationYear": 2001,
-  "ISBN": 34547363776
+  "title": "Build One Empower one",
+  "author": "James k",
+  "publicationYear": 2024,
+  "ISBN": 234563756 
 }
 
 
@@ -34,9 +34,9 @@ Content-Type: application/json
 DELETE http://localhost:3000/books/soft/1
 
 ### Hard delete a book by ID
-DELETE http://localhost:3000/books/11
+DELETE http://localhost:3000/books/3
 
 ### Count books by publication year
-GET http://localhost:3000/books/count/1999
+GET http://localhost:3000/books/count/2024
 
 

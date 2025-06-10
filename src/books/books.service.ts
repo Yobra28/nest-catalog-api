@@ -18,15 +18,13 @@ export class BooksService {
   constructor(private readonly databaseService: DatabaseService) {}
 
   async create(createBookDto: CreateBookDto): Promise<Books> {
-  const ifbookisbnexist = await this.databaseService.query(
+  const ifBookExist = await this.databaseService.query(
     `SELECT * FROM Books WHERE isbn = $1`,
     [createBookDto.ISBN],
   );
-
-  if (ifbookisbnexist.rows && ifbookisbnexist.rows.length > 0) {
+  if (ifBookExist.rows && ifBookExist.rows.length > 0) {
     throw new ConflictException(`Book with ISBN ${createBookDto.ISBN} already exists`);
   }
-
   try {
     const result = await this.databaseService.query(
       `SELECT * FROM create_book($1, $2, $3, $4)`,
@@ -37,20 +35,17 @@ export class BooksService {
         createBookDto.ISBN,
       ],
     );
-
     console.log('DB result:', result.rows);
-
     if (!result.rows || result.rows.length === 0) {
       throw new InternalServerErrorException('No data returned from create_book function');
     }
-
     return this.mapRowToBooks(result.rows[0]);
-  } catch (error: any) {
-    console.error('Database error stack:', error.stack || error);
-    if (error.message && error.message.includes('already exists')) {
+  } catch (error: unknown) {
+    console.error('Database error stack:', error instanceof Error ? error.stack : error);
+    if (error instanceof Error && error.message.includes('already exists')) {
       throw new ConflictException(error.message);
     }
-    throw new InternalServerErrorException(error.message || 'Failed to create book');
+    throw new InternalServerErrorException(error instanceof Error ? error.message : 'Failed to create book');
   }
 }
   mapRowToBooks(row: any): Books {
@@ -97,12 +92,12 @@ export class BooksService {
       throw new NotFoundException(`Book with ID ${id} not found`);
     }
     return result.rows[0];
-  } catch (error) {
-    console.error('Database error:', error);
+  } catch (error: unknown) {
+    console.error('Database error:', error instanceof Error ? error.message : error);
     if (error instanceof NotFoundException) {
       throw error;
     }
-    throw new InternalServerErrorException(error.message || `Failed to update book ${id}`);
+    throw new InternalServerErrorException(error instanceof Error ? error.message : `Failed to update book ${id}`);
   }
 }
 
@@ -126,7 +121,7 @@ async hardDelete(id: number): Promise<void> {
     );
     if (result.rowCount === 0) {
       throw new NotFoundException(`Book with ID ${id} not found`);
-    }
+     }
   } catch (error) {
     console.error('Database error:', error);
     if (error instanceof NotFoundException) {
